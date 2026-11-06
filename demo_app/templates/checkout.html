@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block content %}
+<h2 id="page-title">Checkout</h2>
+<form method="post" novalidate class="box">
+  {% if error %}<div id="checkout-error" class="error">{{ error }}</div>{% endif %}
+  <label>Full name <input id="full-name" name="full_name"></label>
+  <label>Address <input id="address" name="address"></label>
+  <label>PIN code <input id="pin-code" name="pin_code"></label>
+  <button id="place-order-btn" type="submit">Place order</button>
+</form>
+{% endblock %}

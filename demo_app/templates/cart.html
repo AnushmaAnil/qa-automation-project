@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% block content %}
+<h2 id="page-title">Your Cart</h2>
+{% if not rows %}
+  <p id="cart-empty">Your cart is empty</p>
+{% else %}
+<table>
+  <tr><th>Item</th><th>Qty</th><th>Subtotal</th><th></th></tr>
+  {% for r in rows %}
+  <tr id="cart-row-{{ r.product.id }}">
+    <td class="item-name">{{ r.product.name }}</td>
+    <td class="item-qty">{{ r.qty }}</td>
+    <td class="item-subtotal">₹{{ r.subtotal }}</td>
+    <td><form method="post" action="{{ url_for('cart_remove', pid=r.product.id) }}">
+      <button id="remove-{{ r.product.id }}" type="submit">Remove</button></form></td>
+  </tr>
+  {% endfor %}
+</table>
+<p class="total">Total: <strong id="cart-total">₹{{ total }}</strong></p>
+<a id="checkout-btn" class="btn" href="{{ url_for('checkout') }}">Checkout</a>
+{% endif %}
+{% endblock %}

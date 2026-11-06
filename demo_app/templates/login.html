@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block content %}
+<h2 id="page-title">Login</h2>
+<form method="post" novalidate class="box">
+  {% if error %}<div id="login-error" class="error">{{ error }}</div>{% endif %}
+  <label>Username <input id="username" name="username"></label>
+  <label>Password <input id="password" name="password" type="password"></label>
+  <button id="login-btn" type="submit">Login</button>
+  <p class="hint">Demo user: standard_user / secret123</p>
+</form>
+{% endblock %}

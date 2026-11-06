@@ -1,0 +1,27 @@
+ID,Module,Title,Type,Priority,Steps,Expected Result,Automated Test
+TC-001,Login,Valid login,Positive,High,Enter standard_user/secret123 and click Login,Products page opens,tests/ui/test_login.py::test_valid_login_opens_products_page
+TC-002,Login,Empty username,Negative,High,Leave username blank and click Login,Username is required,tests/ui/test_login.py::test_invalid_login_shows_error[empty-username]
+TC-003,Login,Empty password,Negative,High,Leave password blank and click Login,Password is required,tests/ui/test_login.py::test_invalid_login_shows_error[empty-password]
+TC-004,Login,Wrong password,Negative,High,Enter wrong password,Invalid username or password,tests/ui/test_login.py::test_invalid_login_shows_error[wrong-password]
+TC-005,Login,Locked user,Negative,Medium,Login as locked_user,Account locked message,tests/ui/test_login.py::test_invalid_login_shows_error[locked-user]
+TC-006,Login,Protected pages need login,Security,High,Open /products /cart /checkout without login,Redirected to login,tests/ui/test_login.py::test_protected_pages_redirect_to_login
+TC-007,Products,List all products,Positive,High,Open products page,4 products shown,tests/ui/test_products.py::test_all_products_are_listed
+TC-008,Products,Search by name,Positive,Medium,Search 'Jacket',Only Fleece Jacket shown,tests/ui/test_products.py::test_search_returns_matching_product
+TC-009,Products,Search no match,Negative,Low,Search 'Laptop',No products found message,tests/ui/test_products.py::test_search_with_no_match_shows_message
+TC-010,Products,Search is case-insensitive,Positive,Medium,Search 'BACKPACK',Backpack shown (FAILS - BUG-001),tests/ui/test_products.py::test_search_is_case_insensitive
+TC-011,Cart,Add item,Positive,High,Click Add to cart,Badge shows 1,tests/ui/test_cart.py::test_add_item_updates_cart_badge
+TC-012,Cart,Cart total,Positive,High,Add Backpack and Bike Light,Total = 2498,tests/ui/test_cart.py::test_cart_total_for_multiple_items
+TC-013,Cart,Quantity increments,Positive,Medium,Add same item twice,Qty 2 and total doubles,tests/ui/test_cart.py::test_adding_same_item_twice_increases_quantity
+TC-014,Cart,Remove item,Positive,Medium,Remove Backpack,Item gone and total updated,tests/ui/test_cart.py::test_remove_item_updates_total
+TC-015,Cart,Empty cart,Negative,Low,Open cart with no items,Cart is empty message,tests/ui/test_cart.py::test_empty_cart_message
+TC-016,Checkout,End-to-end purchase,Positive,High,Add item then checkout with valid details,Order confirmed with ID,tests/ui/test_checkout.py::test_end_to_end_purchase
+TC-017,Checkout,Field validation,Negative,High,Submit with blank/invalid fields,Matching error message,tests/ui/test_checkout.py::test_checkout_validation_errors
+TC-018,Checkout,Empty cart checkout,Negative,Medium,Open /checkout with empty cart,Redirected to cart,tests/ui/test_checkout.py::test_checkout_with_empty_cart_redirects_to_cart
+TC-019,API,Login returns token,Positive,High,POST /api/login valid,200 + token,tests/api/test_auth_api.py::test_login_returns_token
+TC-020,API,Login error codes,Negative,High,POST /api/login invalid payloads,400/401/403,tests/api/test_auth_api.py::test_login_error_codes
+TC-021,API,Product schema,Positive,High,GET /api/products,200 + valid schema,tests/api/test_products_api.py::test_list_products_schema
+TC-022,API,Unknown product,Negative,Medium,GET /api/products/999,404,tests/api/test_products_api.py::test_unknown_product_returns_404
+TC-023,API,Create order total,Positive,High,POST /api/orders,201 + correct total,tests/api/test_orders_api.py::test_create_order_calculates_total
+TC-024,API,Order validation,Negative,High,POST invalid items/pin,400/404,tests/api/test_orders_api.py::test_invalid_orders_are_rejected
+TC-025,API,Quantity boundaries,Boundary,Medium,Quantity 1 and 10,201,tests/api/test_orders_api.py::test_quantity_boundaries_are_accepted
+TC-026,API,Order authorisation,Security,High,User B reads user A order,403,tests/api/test_orders_api.py::test_user_cannot_read_another_users_order

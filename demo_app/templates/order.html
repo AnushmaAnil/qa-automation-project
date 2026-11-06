@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block content %}
+<div id="order-confirmation" class="box">
+  <h2 id="page-title">Thank you for your order!</h2>
+  <p>Order ID: <span id="order-id">{{ order.order_id }}</span></p>
+  <p>Total paid: <span id="order-total">₹{{ order.total }}</span></p>
+</div>
+{% endblock %}

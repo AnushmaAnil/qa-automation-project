@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% block content %}
+<h2 id="page-title">Products</h2>
+<form method="get" class="search">
+  <input id="search-input" name="q" value="{{ q }}" placeholder="Search products">
+  <button id="search-btn" type="submit">Search</button>
+</form>
+{% if not products %}<p id="no-results">No products found</p>{% endif %}
+<div class="grid">
+{% for p in products %}
+  <div class="card" id="product-{{ p.id }}">
+    <h3 class="product-name">{{ p.name }}</h3>
+    <p class="product-price">₹{{ p.price }}</p>
+    <form method="post" action="{{ url_for('cart_add', pid=p.id) }}">
+      <button id="add-{{ p.id }}" type="submit">Add to cart</button>
+    </form>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}
